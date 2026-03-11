@@ -44,12 +44,12 @@
 ### ✅ Completed
 - [x] **User Story 1**: GitHub repository creation (Project structure exists locally)
 - [x] **User Story 2**: Django REST Framework backend project structure (Virtual environment, project setup, tasks app created)
+- [x] **User Story 3**: Environment variables configuration (.env file created, settings.py updated for Vercel deployment)
 
 ### 🔄 In Progress  
-- [ ] **User Story 3**: Environment variables configuration (Next to implement)
+- [ ] **User Story 4**: User authentication (Next to implement)
 
 ### ⏳ Pending
-- [ ] **User Story 4**: User authentication
 - [ ] **User Story 5**: Task creation
 - [ ] **User Story 6**: Task status management
 - [ ] **User Story 7**: Task editing
@@ -83,8 +83,8 @@
 7. ✅ User stories organized and documented
 
 ### Next Steps
-1. **Immediate**: Configure environment variables (User Story 3)
-2. **Following**: Implement user authentication system
+1. **Immediate**: Implement user authentication system (User Story 4)
+2. **Following**: Create task CRUD operations
 
 ### Development Environment
 - **Python**: Using `py` command
