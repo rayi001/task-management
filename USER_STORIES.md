@@ -48,9 +48,10 @@
 - [x] **User Story 4**: User authentication (JWT-based registration, login, and profile endpoints implemented)
 - [x] **User Story 5**: Task creation (Task model, serializers, and CRUD endpoints implemented)
 - [x] **User Story 6**: Task status management (Status update endpoint with validation implemented)
+- [x] **User Story 7**: Task editing (PUT/PATCH endpoints for full and partial task updates implemented)
 
 ### 🔄 In Progress  
-- [ ] **User Story 7**: Task editing (Next to implement)
+- [ ] **User Story 8**: Task deletion (Next to implement)
 
 ### ⏳ Pending
 - [ ] **User Story 8**: Task deletion
@@ -83,8 +84,8 @@
 7. ✅ User stories organized and documented
 
 ### Next Steps
-1. **Immediate**: Implement task editing functionality (User Story 7)
-2. **Following**: Implement task deletion functionality
+1. **Immediate**: Implement task deletion functionality (User Story 8)
+2. **Following**: Implement React frontend (User Story 9)
 
 ### Development Environment
 - **Python**: Using `py` command

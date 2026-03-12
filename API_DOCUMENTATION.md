@@ -251,6 +251,84 @@
 
 ---
 
+### PUT /api/auth/tasks/<task_id>/
+**Description**: Fully update a task (requires authentication)
+
+**Headers**: `Authorization: Bearer <access_token>`
+
+**Request Body**:
+```json
+{
+    "title": "Updated task title",
+    "description": "Updated task description",
+    "status": "in_progress"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+    "id": 1,
+    "title": "Updated task title",
+    "description": "Updated task description",
+    "status": "in_progress",
+    "created_at": "2024-03-12T17:30:00.000Z",
+    "updated_at": "2024-03-12T18:30:00.000Z"
+}
+```
+
+**Error Responses**:
+- **400 Bad Request** (Validation errors):
+```json
+{
+    "title": ["This field is required."]
+}
+```
+
+- **404 Not Found** (Task not found or doesn't belong to user):
+```json
+{
+    "error": "Task not found"
+}
+```
+
+- **401 Unauthorized** (No authentication):
+```json
+{
+    "detail": "Authentication credentials were not provided."
+}
+```
+
+---
+
+### PATCH /api/auth/tasks/<task_id>/
+**Description**: Partially update a task (requires authentication)
+
+**Headers**: `Authorization: Bearer <access_token>`
+
+**Request Body** (only include fields you want to update):
+```json
+{
+    "title": "New title only"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+    "id": 1,
+    "title": "New title only",
+    "description": "Original description unchanged",
+    "status": "todo",
+    "created_at": "2024-03-12T17:30:00.000Z",
+    "updated_at": "2024-03-12T18:35:00.000Z"
+}
+```
+
+**Error Responses**: Same as PUT endpoint
+
+---
+
 ## Usage Examples
 
 ### Register a new user:
@@ -301,6 +379,28 @@ curl -X PATCH http://localhost:8000/api/auth/tasks/1/status/ \
 ```bash
 curl -X GET http://localhost:8000/api/auth/tasks/list/ \
   -H "Authorization: Bearer <your_access_token>"
+```
+
+### Update a task (full update with PUT):
+```bash
+curl -X PUT http://localhost:8000/api/auth/tasks/1/ \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <your_access_token>" \
+  -d '{
+    "title": "Updated task title",
+    "description": "Updated description",
+    "status": "in_progress"
+  }'
+```
+
+### Update a task (partial update with PATCH):
+```bash
+curl -X PATCH http://localhost:8000/api/auth/tasks/1/ \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <your_access_token>" \
+  -d '{
+    "title": "New title only"
+  }'
 ```
 
 ### Get profile (with token):
