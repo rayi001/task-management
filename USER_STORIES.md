@@ -49,12 +49,12 @@
 - [x] **User Story 5**: Task creation (Task model, serializers, and CRUD endpoints implemented)
 - [x] **User Story 6**: Task status management (Status update endpoint with validation implemented)
 - [x] **User Story 7**: Task editing (PUT/PATCH endpoints for full and partial task updates implemented)
+- [x] **User Story 8**: Task deletion (DELETE endpoint for removing tasks implemented)
 
 ### 🔄 In Progress  
-- [ ] **User Story 8**: Task deletion (Next to implement)
+- [ ] **User Story 9**: React frontend (Next to implement)
 
 ### ⏳ Pending
-- [ ] **User Story 8**: Task deletion
 - [ ] **User Story 9**: React frontend
 - [ ] **User Story 10**: Dockerfiles
 - [ ] **User Story 11**: GitHub Actions
@@ -84,8 +84,8 @@
 7. ✅ User stories organized and documented
 
 ### Next Steps
-1. **Immediate**: Implement task deletion functionality (User Story 8)
-2. **Following**: Implement React frontend (User Story 9)
+1. **Immediate**: Implement React frontend (User Story 9)
+2. **Following**: Create Dockerfiles for backend and frontend (User Story 10)
 
 ### Development Environment
 - **Python**: Using `py` command
