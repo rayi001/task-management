@@ -329,6 +329,35 @@
 
 ---
 
+### DELETE /api/auth/tasks/<task_id>/delete/
+**Description**: Delete a task (requires authentication)
+
+**Headers**: `Authorization: Bearer <access_token>`
+
+**Response (200 OK)**:
+```json
+{
+    "message": "Task deleted successfully"
+}
+```
+
+**Error Responses**:
+- **404 Not Found** (Task not found or doesn't belong to user):
+```json
+{
+    "error": "Task not found"
+}
+```
+
+- **401 Unauthorized** (No authentication):
+```json
+{
+    "detail": "Authentication credentials were not provided."
+}
+```
+
+---
+
 ## Usage Examples
 
 ### Register a new user:
@@ -401,6 +430,12 @@ curl -X PATCH http://localhost:8000/api/auth/tasks/1/ \
   -d '{
     "title": "New title only"
   }'
+```
+
+### Delete a task:
+```bash
+curl -X DELETE http://localhost:8000/api/auth/tasks/1/delete/ \
+  -H "Authorization: Bearer <your_access_token>"
 ```
 
 ### Get profile (with token):
