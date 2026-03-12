@@ -64,3 +64,26 @@ def list_tasks(request):
     tasks = Task.objects.filter(user=request.user)
     serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
+
+
+@api_view(['PATCH'])
+@permission_classes([permissions.IsAuthenticated])
+def update_task_status(request, task_id):
+    try:
+        task = Task.objects.get(id=task_id, user=request.user)
+    except Task.DoesNotExist:
+        return Response({'error': 'Task not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    if 'status' not in request.data:
+        return Response({'error': 'Status field is required'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    new_status = request.data['status']
+    valid_statuses = [choice[0] for choice in Task.STATUS_CHOICES]
+    
+    if new_status not in valid_statuses:
+        return Response({'error': f'Invalid status. Valid options: {valid_statuses}'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    task.status = new_status
+    task.save()
+    
+    return Response(TaskSerializer(task).data, status=status.HTTP_200_OK)

@@ -196,6 +196,61 @@
 
 ---
 
+### PATCH /api/auth/tasks/<task_id>/status/
+**Description**: Update task status (requires authentication)
+
+**Headers**: `Authorization: Bearer <access_token>`
+
+**Request Body**:
+```json
+{
+    "status": "in_progress"
+}
+```
+
+**Response (200 OK)**:
+```json
+{
+    "id": 1,
+    "title": "Complete project documentation",
+    "description": "Write comprehensive API documentation for TaskSphere project",
+    "status": "in_progress",
+    "created_at": "2024-03-12T17:30:00.000Z",
+    "updated_at": "2024-03-12T18:00:00.000Z"
+}
+```
+
+**Error Responses**:
+- **400 Bad Request** (Missing status field):
+```json
+{
+    "error": "Status field is required"
+}
+```
+
+- **400 Bad Request** (Invalid status):
+```json
+{
+    "error": "Invalid status. Valid options: ['todo', 'in_progress', 'completed']"
+}
+```
+
+- **404 Not Found** (Task not found or doesn't belong to user):
+```json
+{
+    "error": "Task not found"
+}
+```
+
+- **401 Unauthorized** (No authentication):
+```json
+{
+    "detail": "Authentication credentials were not provided."
+}
+```
+
+---
+
 ## Usage Examples
 
 ### Register a new user:
@@ -229,6 +284,16 @@ curl -X POST http://localhost:8000/api/auth/tasks/ \
     "title": "New task",
     "description": "Task description",
     "status": "todo"
+  }'
+```
+
+### Update task status:
+```bash
+curl -X PATCH http://localhost:8000/api/auth/tasks/1/status/ \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <your_access_token>" \
+  -d '{
+    "status": "completed"
   }'
 ```
 
