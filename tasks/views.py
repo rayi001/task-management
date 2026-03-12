@@ -87,3 +87,23 @@ def update_task_status(request, task_id):
     task.save()
     
     return Response(TaskSerializer(task).data, status=status.HTTP_200_OK)
+
+
+@api_view(['PUT', 'PATCH'])
+@permission_classes([permissions.IsAuthenticated])
+def update_task(request, task_id):
+    try:
+        task = Task.objects.get(id=task_id, user=request.user)
+    except Task.DoesNotExist:
+        return Response({'error': 'Task not found'}, status=status.HTTP_404_NOT_FOUND)
+    
+    # For PATCH request, only update provided fields
+    # For PUT request, update all fields (partial=False)
+    partial = request.method == 'PATCH'
+    
+    serializer = TaskSerializer(task, data=request.data, partial=partial)
+    if serializer.is_valid():
+        updated_task = serializer.save()
+        return Response(TaskSerializer(updated_task).data, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
