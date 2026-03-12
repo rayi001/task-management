@@ -3,7 +3,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.models import User
-from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserSerializer
+from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserSerializer, TaskSerializer
+from .models import Task
 
 
 @api_view(['POST'])
@@ -44,4 +45,22 @@ def login(request):
 @permission_classes([permissions.IsAuthenticated])
 def profile(request):
     serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def create_task(request):
+    serializer = TaskSerializer(data=request.data, context={'request': request})
+    if serializer.is_valid():
+        task = serializer.save()
+        return Response(TaskSerializer(task).data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+@permission_classes([permissions.IsAuthenticated])
+def list_tasks(request):
+    tasks = Task.objects.filter(user=request.user)
+    serializer = TaskSerializer(tasks, many=True)
     return Response(serializer.data)
